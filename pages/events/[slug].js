@@ -57,6 +57,9 @@ export async function getStaticPaths() {
     params: { slug: evt.slug },
   }));
 
+  // this should show an array of param objects in terminal
+  console.log(paths);
+
   return {
     paths,
     fallback: true,
@@ -66,6 +69,11 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { slug } }) {
   const res = await fetch(`${API_URL}/api/events/${slug}`);
   const events = await res.json();
+
+  // this should should only one event in the terminal
+  console.log(events);
+  // console.log(events[0]) should show the same
+  // console.log(events[1]) should show undefined
 
   return {
     props: {
