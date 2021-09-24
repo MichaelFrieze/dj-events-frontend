@@ -47,6 +47,7 @@ export default function EventPage({ evt }) {
   );
 }
 
+// Get's static paths for static generation
 export async function getStaticPaths() {
   const res = await fetch(`${API_URL}/events`);
   const events = await res.json();
@@ -57,10 +58,11 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 }
 
+// For static generation
 export async function getStaticProps({ params: { slug } }) {
   const res = await fetch(`${API_URL}/events?slug=${slug}`);
   const events = await res.json();
@@ -73,13 +75,14 @@ export async function getStaticProps({ params: { slug } }) {
   };
 }
 
+// // Enable this for server-side rendering
 // export async function getServerSideProps({ query: { slug } }) {
-//   const res = await fetch(`${API_URL}/api/events/${slug}`)
-//   const events = await res.json()
+//   const res = await fetch(`${API_URL}/events?slug=${slug}`);
+//   const events = await res.json();
 
 //   return {
 //     props: {
 //       evt: events[0],
 //     },
-//   }
+//   };
 // }
